@@ -1,0 +1,12 @@
+[Unit]
+Description=Setup alsa card(s).
+Before=sound.target
+Before=jack.service
+
+[Service]
+Type=oneshot
+ExecStart=%E/systemd/bin/alsa-setup
+
+[Install]
+WantedBy=default.target
+WantedBy=sound.target

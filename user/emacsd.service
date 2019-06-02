@@ -1,14 +1,13 @@
 [Unit]
 Description=Emacs: the extensible, self-documenting text editor
-Documentation=man:emacs(1) info:Emacs
+Documentation=info:emacs man:emacs(1)
 
 [Service]
-Type=forking
-ExecStart=/bin/zsh -l -c 'exec /usr/bin/emacs --daemon'
-ExecStop=/usr/bin/emacsclient --eval "(progn (setq kill-emacs-hook nil) (kill emacs))"
-Environment=DISPLAY=:%i
-TimeoutStartSec=0
+Type=simple
+Environment=SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh
+ExecStart=/usr/bin/emacs --fg-daemon
+ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
 Restart=on-failure
 
 [Install]
-WantedBy=user_services.target
+WantedBy=default.target

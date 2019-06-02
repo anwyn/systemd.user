@@ -1,0 +1,18 @@
+#!/bin/bash
+
+CARD=USB
+
+# alsa setup
+alsactl -f ~/.config/alsa/${CARD}.state restore ${CARD}
+
+# toggle left channel, it will not function otherwise
+amixer -c ${CARD} sset 'Master 2L (Headphone) Source',0 'PCM 2' > /dev/null 2>&1
+amixer -c ${CARD} sset 'Master 2L (Headphone) Source',0 'PCM 1' > /dev/null 2>&1
+
+# initialize the rest by toggleing the inputs
+for channel in $(seq 12)
+do
+    amixer -c $CARD sset "$(printf 'Matrix %02d Input' $channel)" 'Off'
+    amixer -c $CARD sset "$(printf 'Matrix %02d Input' $channel)" "$(printf 'PCM %d' $channel)"
+done > /dev/null 2>&1
+

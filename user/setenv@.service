@@ -1,9 +1,0 @@
-[Unit]
-Description=Set environment
-Wants=dbus.service gpg-agent.service ssh-agent.service
-After=dbus.service gpg-agent.service ssh-agent.service
-
-[Service]
-Type=oneshot
-Environment=SSH_AUTH_SOCK=%t/ssh_auth_sock
-ExecStart=/home/ole/.config/systemd/bin/systemd-setenv %i
