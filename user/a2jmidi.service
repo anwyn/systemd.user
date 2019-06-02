@@ -1,0 +1,18 @@
+[Unit]
+Description=Bridge ALSA MIDI to Jack MIDI
+BindsTo=jack.service
+After=jack.service
+
+[Service]
+Type=dbus
+BusName=org.gna.home.a2jmidid.control
+ExecStartPre=/usr/bin/jack_wait -w
+ExecStartPre=/usr/bin/a2j_control ehw
+ExecStart=/usr/bin/a2j_control start
+ExecStop=/usr/bin/a2j_control stop
+SuccessExitStatus=0
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
+WantedBy=jack.service

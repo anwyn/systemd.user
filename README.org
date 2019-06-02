@@ -1,0 +1,24 @@
+
+* Alsa,Jack, Pulseaudio and Systemd User Sessions
+
+  This is the setup for my hardware:
+
+  - Card 1 :: Motherboard, HD Audio (ALC 1220) 
+  - Card 2 :: USB, Rocksmith Guitar Adapter
+  - Card 3 :: USB, Focusrite Scarlet 8i6
+
+* Jack
+
+  In case jack can not switch to realtime mode when started from a
+  user session systemd service, but does it just fine from the X11
+  session dbus, check if /etc/pam.d/systemd-user contains the line
+
+: session required pam_limits.so
+
+  
+* Pulseaudio
+
+  I want Pulsaudio for the ease of integrating non Jack-aware desktop
+  applications. It is bridged to Jack via module-jack-source and module-jack-sink.
+  Pulseaudio can not set realtime scheduling for the jack modules,
+  there is an open issue for this in the bugtracker.

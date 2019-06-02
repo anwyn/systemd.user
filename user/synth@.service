@@ -1,0 +1,18 @@
+[Unit]
+Description=Fluidsynth with %I soundfont
+BindsTo=jack.service
+After=jack.service
+ConditionFileNotEmpty=%E/jack/conf.env
+ 
+[Service]
+Type=simple
+LimitNICE=-15
+LimitRTPRIO=99
+# Configure path to your soundfonts
+Environment=SOUNDFONT=%h/audio/lib/soundfonts/%I.sf2
+EnvironmentFile=%E/jack/conf.env
+ExecStartPre=/usr/bin/jack_wait -w
+ExecStart=/usr/bin/fluidsynth --server --no-shell --audio-driver=jack --midi-driver=jack --sample-rate=${JACK_RATE} --audio-bufsize=${JACK_PERIOD} --audio-bufcount=${JACK_NPERIODS} --connect-jack-outputs --gain 1 ${SOUNDFONT}
+ 
+[Install]
+WantedBy=default.target
