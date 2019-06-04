@@ -1,11 +1,129 @@
 
 * Alsa,Jack, Pulseaudio and Systemd User Sessions
 
-  This is the setup for my hardware:
+* Alsa Setup
 
-  - Card 1 :: Motherboard, HD Audio (ALC 1220) 
-  - Card 2 :: USB, Rocksmith Guitar Adapter
-  - Card 3 :: USB, Focusrite Scarlet 8i6
+  These are the cards for my hardware:
+
+#+BEGIN_SRC sh
+  cat /sys/class/sound/card*/id
+#+END_SRC
+
+  - Nvidia  :: NVIDIA HDMI, Card 0, 4 Devices
+  - Generic :: Motherboard HD Audio (ALC 1220), Card 1, 2 Devices
+  - Adapter :: USB Rocksmith Guitar Adapter, Card 2, 1 Device
+  - USB     :: Focusrite Scarlet 8i6 in, Card 3, 1 Device
+
+
+#+BEGIN_EXAMPLE ~/.asoundrc
+pcm.hdmi0 {
+    type hw
+    card NVidia
+    device 0
+    hint.description "HDMI Audio Output"
+}
+
+ctl.hdmi0 {
+    type hw
+    card NVidia
+    device 0
+}
+
+pcm.hdmi1 {
+    type hw
+    card NVidia
+    device 1
+    hint.description "HDMI Audio Output"
+}
+
+ctl.hdmi1 {
+    type hw
+    card NVidia
+    device 1
+}
+
+pcm.hdmi2 {
+    type hw
+    card NVidia
+    device 2
+    hint.description "HDMI Audio Output"
+}
+
+ctl.hdmi2 {
+    type hw
+    card NVidia
+    device 2
+}
+
+pcm.hdmi3 {
+    type hw
+    card NVidia
+    device 3
+    hint.description "HDMI Audio Output"
+}
+
+ctl.hdmi3 {
+    type hw
+    card NVidia
+    device 3
+}
+
+pcm.analog {
+    type hw
+    card Generic
+    device 0
+    hint.description "Internal HD audio, analog"
+}
+
+ctl.analog {
+    type hw
+    card Generic
+    device 0
+}
+
+pcm.digital {
+    type hw
+    card Generic
+    device 1
+    hint.description "Internal HD audio, optical digital"
+}
+
+ctl.digital {
+    type hw
+    card Generic
+    device 1
+}
+
+pcm.scarlett {
+    type hw
+    card USB
+    device 0
+    hint.description "Focusrite Scarlett 8i6 USB"
+}
+
+ctl.scarlett {
+    type hw
+    card USB
+    device 0
+}
+
+pcm.rocksmith {
+    type hw
+    card Adapter
+    device 0
+    hint.description "Rocksmith USB Adapter"
+}
+
+ctl.rocksmith {
+    type hw
+    card Adapter
+    device 0
+}
+
+pcm.default pulse
+ctl.default pulse
+
+#+END_EXAMPLE
 
 * Jack
 

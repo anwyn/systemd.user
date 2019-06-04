@@ -1,7 +1,6 @@
 #!/bin/sh
 
-JACK_ENV_FILE=${1:-~/.config/jack/conf.env)
-for parm in rate nperiods period; do
-    echo JACK_$(echo $parm | tr 'a-z' 'A-Z')=$(/usr/bin/jack_control dp | grep -e "^\ *${parm}:" | sed 's/.*:\(.*\))$/\1/')
+JACK_ENV_FILE=${1:-~/.config/jack/conf.env}
+for parm in rate nperiods period device; do
+    echo JACK_$(echo $parm | tr 'a-z' 'A-Z')=\"$(/usr/bin/jack_control dp | grep -e "^\ *${parm}:" | sed 's/.*:\(.*\))$/\1/')\"
 done > ${JACK_ENV_FILE}
-

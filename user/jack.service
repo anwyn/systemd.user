@@ -8,11 +8,11 @@ After=alsa-setup.service
 [Service]
 Type=dbus
 BusName=org.jackaudio.Controller
+ExecStartPre=%E/systemd/bin/jack-env %E/jack/conf.env
 ExecStart=/usr/bin/jack_control start
-ExecStartPost=%E/systemd/bin/jack-env %E/jack/conf.env
 ExecStop=/usr/bin/jack_control stop
 ExecStopPost=/usr/bin/pkill -9 jackdbus
-ExecStopPost=/bin/rm %E/jack/conf.env
+ExecStopPost=/bin/rm -f %E/jack/conf.env
 SuccessExitStatus=0
 RemainAfterExit=true
 #Restart=always
