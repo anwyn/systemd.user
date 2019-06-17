@@ -1,6 +1,5 @@
 [Unit]
 Description=JACK 2 Sound Daemon
-Before=sound.target
 Before=pulseaudio.service
 Requires=dbus.socket
 After=alsa-setup.service
@@ -20,4 +19,3 @@ RemainAfterExit=true
 
 [Install]
 WantedBy=default.target
-WantedBy=sound.target

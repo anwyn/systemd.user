@@ -14,8 +14,37 @@
   - Adapter :: USB Rocksmith Guitar Adapter, Card 2, 1 Device
   - USB     :: Focusrite Scarlet 8i6 in, Card 3, 1 Device
 
+  and here is the configuration for kernel modules and alsa.
+  The kernel module options make sure that the modules are loaded in
+  the same order every boot.
+  
+#+BEGIN_EXAMPLE /etc/modprobe.d/alsa.conf
+# Alsa kernel modules' configuration file.
 
-#+BEGIN_EXAMPLE ~/.asoundrc
+# ALSA portion
+alias char-major-116 snd
+options snd major=116 cards_limit=5 slots=snd_aloop,snd_hda_intel,snd_hda_intel,snd_usb_audio,snd_usb_audio
+
+# Loopback
+alias snd-card-0 snd_aloop
+options snd_aloop index=0
+
+# Internal Audio and NVidia HDMI Audio
+alias snd-card-1 snd_hda_intel
+alias snd-card-2 snd_hda_intel
+options snd_hda_intel index=1,2
+
+# USB: index 3 = Scarlett 8i6, 4 = Rocksmith Adaptor
+alias snd-card-3 snd_usb_audio
+alias snd-card-4 snd_usb_audio
+options snd_usb_audio index=3,4 vid=0x1235,0x12ba pid=0x8002,0x00ff
+
+#+END_EXAMPLE
+
+   The alsa config snippet gives some nicer names to the hardware
+   cards. We use these later. 
+   
+#+BEGIN_EXAMPLE /etc/alsa/conf.d/99-cards.conf
 pcm.hdmi0 {
     type hw
     card NVidia

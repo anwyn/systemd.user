@@ -1,9 +1,9 @@
 [Unit]
 Description=Connect pulseaudio output to playback ports of jack2alsa connector %I
-BindsTo=jack2alsa@%i.service
-After=jack2alsa@%i.service
-BindsTo=pulseaudio.service
-After=pulseaudio.service
+BindsTo=jack-connect-alsa-out@%i.service
+After=jack-connect-alsa-out@%i.service
+BindsTo=pulseaudio-jack-bridge.service
+After=pulseaudio-jack-bridge.service
 
 [Service]
 Type=oneshot
@@ -15,4 +15,3 @@ ExecStop=/usr/bin/jack_disconnect "PulseAudio JACK Sink:front-right" "%I:playbac
 
 [Install]
 WantedBy=default.target
-WantedBy=pulseaudio.service

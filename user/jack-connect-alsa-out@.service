@@ -11,4 +11,3 @@ ExecStart=/usr/bin/zita-j2a -j "%I" -d "%I" -c 2 -r ${JACK_RATE} -p ${JACK_PERIO
 
 [Install]
 WantedBy=default.target
-WantedBy=jack.service
