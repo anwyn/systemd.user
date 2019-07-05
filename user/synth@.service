@@ -11,7 +11,7 @@ LimitRTPRIO=99
 # Configure path to your soundfonts
 Environment=SOUNDFONT=%h/audio/lib/soundfonts/%I.sf2
 EnvironmentFile=%E/jack/conf.env
-#ExecStartPre=/usr/bin/jack_wait -w
+#ExecStartPre=/bin/sh -c '/usr/bin/jack_wait -w >/dev/null 2>&1'
 ExecStart=/usr/bin/fluidsynth --server --no-shell --audio-driver=jack --midi-driver=jack --sample-rate=${JACK_RATE} --audio-bufsize=${JACK_PERIOD} --audio-bufcount=${JACK_NPERIODS} --connect-jack-outputs --gain 1 ${SOUNDFONT}
  
 [Install]

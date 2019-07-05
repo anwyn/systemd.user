@@ -1,14 +1,14 @@
 [Unit]
 Description=Load and unload pulseaudio's jack sink/source modules.
-BindsTo=jack.service
+Requires=jack.service
 After=jack.service
-BindsTo=pulseaudio.service
+Requires=pulseaudio.service
 After=pulseaudio.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStartPre=/usr/bin/jack_wait -w
+ExecStartPre=/bin/sh -c '/usr/bin/jack_wait -w -t 5 >/dev/null 2>&1'
 ExecStart=/bin/sh -c "(/usr/bin/pactl list sinks | /bin/grep -q 'Driver: module-jack-sink.c') || /usr/bin/pactl load-module module-jack-sink channels=2"
 ExecStart=/bin/sh -c "(/usr/bin/pactl info | /bin/grep -q 'Default Sink: jack_out') || /usr/bin/pactl set-default-sink jack_out"
 ExecStart=/bin/sh -c "(/usr/bin/pactl list sources | /bin/grep -q 'Driver: module-jack-source.c') || /usr/bin/pactl load-module module-jack-source channels=2"

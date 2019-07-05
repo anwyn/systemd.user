@@ -1,9 +1,24 @@
+#+AUTHOR: Ole Arndt
+#+EMAIL: anwyn@sugarshark.com
+#+LANGUAGE: en
 
-* Alsa,Jack, Pulseaudio and Systemd User Sessions
+* ALSA, Jack, Pulseaudio and Systemd User Sessions
 
-* Alsa Setup
+  This is the audio setup for my hardware. Goals are:
 
-  These are the cards for my hardware:
+  - Use systemd user sessions, so the sound settings are persistent across
+    logins.
+  - Use Pulseaudio for non-realtime audio but bridge it to Jack.
+  - Get my Focusrite Scarlett 8i6 interface to work as good as
+    possible, because it suffers from minor bugs in the kernel
+    driver. Of the 6 mixes only 4 are working, looks like on offset by
+    2 error. After initialization some channels need to be toggled
+    on/off, or switched to another input and back until they route
+    audio.
+
+* ALSA Setup
+
+These are the cards for my hardware:
 
 #+BEGIN_SRC sh
   cat /sys/class/sound/card*/id
@@ -34,10 +49,10 @@ alias snd-card-1 snd_hda_intel
 alias snd-card-2 snd_hda_intel
 options snd_hda_intel index=1,2
 
-# USB: index 3 = Scarlett 8i6, 4 = Rocksmith Adaptor
+# USB: index 3 = Scarlett 8i6, 4 = Rocksmith Adapter
 alias snd-card-3 snd_usb_audio
 alias snd-card-4 snd_usb_audio
-options snd_usb_audio index=3,4 vid=0x1235,0x12ba pid=0x8002,0x00ff
+options snd_usb_audio index=3,4 vid=0x8002,0x00ff pid=0x1235,0x12ba 
 
 #+END_EXAMPLE
 
@@ -45,115 +60,120 @@ options snd_usb_audio index=3,4 vid=0x1235,0x12ba pid=0x8002,0x00ff
    cards. We use these later. 
    
 #+BEGIN_EXAMPLE /etc/alsa/conf.d/99-cards.conf
-pcm.hdmi0 {
-    type hw
-    card NVidia
-    device 0
-    hint.description "HDMI Audio Output"
-}
-
-ctl.hdmi0 {
-    type hw
-    card NVidia
-    device 0
-}
-
-pcm.hdmi1 {
-    type hw
-    card NVidia
-    device 1
-    hint.description "HDMI Audio Output"
-}
-
-ctl.hdmi1 {
-    type hw
-    card NVidia
-    device 1
-}
-
-pcm.hdmi2 {
-    type hw
-    card NVidia
-    device 2
-    hint.description "HDMI Audio Output"
-}
-
-ctl.hdmi2 {
-    type hw
-    card NVidia
-    device 2
-}
-
-pcm.hdmi3 {
-    type hw
-    card NVidia
-    device 3
-    hint.description "HDMI Audio Output"
-}
-
-ctl.hdmi3 {
-    type hw
-    card NVidia
-    device 3
-}
-
-pcm.analog {
-    type hw
-    card Generic
-    device 0
-    hint.description "Internal HD audio, analog"
-}
-
-ctl.analog {
-    type hw
-    card Generic
-    device 0
-}
-
-pcm.digital {
-    type hw
-    card Generic
-    device 1
-    hint.description "Internal HD audio, optical digital"
-}
-
-ctl.digital {
-    type hw
-    card Generic
-    device 1
-}
-
-pcm.scarlett {
-    type hw
-    card USB
-    device 0
-    hint.description "Focusrite Scarlett 8i6 USB"
-}
-
-ctl.scarlett {
-    type hw
-    card USB
-    device 0
-}
-
-pcm.rocksmith {
-    type hw
-    card Adapter
-    device 0
-    hint.description "Rocksmith USB Adapter"
-}
-
-ctl.rocksmith {
-    type hw
-    card Adapter
-    device 0
-}
-
-pcm.default pulse
-ctl.default pulse
+  pcm.hdmi0 {
+      type hw
+      card NVidia
+      device 0
+      hint.description "HDMI Audio Output"
+  }
+   
+  ctl.hdmi0 {
+      type hw
+      card NVidia
+      device 0
+  }
+   
+  pcm.hdmi1 {
+      type hw
+      card NVidia
+      device 1
+      hint.description "HDMI Audio Output"
+  }
+   
+  ctl.hdmi1 {
+      type hw
+      card NVidia
+      device 1
+  }
+   
+  pcm.hdmi2 {
+      type hw
+      card NVidia
+      device 2
+      hint.description "HDMI Audio Output"
+  }
+   
+  ctl.hdmi2 {
+      type hw
+      card NVidia
+      device 2
+  }
+   
+  pcm.hdmi3 {
+      type hw
+      card NVidia
+      device 3
+      hint.description "HDMI Audio Output"
+  }
+   
+  ctl.hdmi3 {
+      type hw
+      card NVidia
+      device 3
+  }
+   
+  pcm.analog {
+      type hw
+      card Generic
+      device 0
+      hint.description "Internal HD audio, analog"
+  }
+   
+  ctl.analog {
+      type hw
+      card Generic
+      device 0
+  }
+   
+  pcm.digital {
+      type hw
+      card Generic
+      device 1
+      hint.description "Internal HD audio, optical digital"
+  }
+   
+  ctl.digital {
+      type hw
+      card Generic
+      device 1
+  }
+   
+  pcm.scarlett {
+      type hw
+      card USB
+      device 0
+      hint.description "Focusrite Scarlett 8i6 USB"
+  }
+   
+  ctl.scarlett {
+      type hw
+      card USB
+      device 0
+  }
+   
+  pcm.rocksmith {
+      type hw
+      card Adapter
+      device 0
+      hint.description "Rocksmith USB Adapter"
+  }
+   
+  ctl.rocksmith {
+      type hw
+      card Adapter
+      device 0
+  }
+   
+  pcm.default pulse
+  ctl.default pulse
 
 #+END_EXAMPLE
 
+  The =alsa-setup.service= restores the alsa cards settings from a file
+  in =~/.config/alsa/=. Unfortunately this is not enough for my
+  Focusrite Scarlett 8i6, the Channels are muted unless they are
+  toggled on/off one time. So the =alsa-setup= script in
+  =~/.config/systemd/bin= does this as well.
 * Jack
 
   In case jack can not switch to realtime mode when started from a
@@ -162,10 +182,30 @@ ctl.default pulse
 
 : session required pam_limits.so
 
+  and, if not, add it.
+
+  =jack.service= starts the DBus variant of Jack (Jack2). It stores
+  its configuration in =~/config/jack/conf.xml=. For ease of importing
+  these settings into dependent service unit files, the settings are
+  exported into a shell variable like environment file in
+  =~/.config/jack/conf.env=.
   
+  Additional services for a ALSA-MIDI/Jack-MIDI bridge and the import
+  of the 'digital' ALSA card into Jack exists, which read this
+  environment file.
+
 * Pulseaudio
 
-  I want Pulsaudio for the ease of integrating non Jack-aware desktop
+  I want Pulseaudio for the ease of integrating non Jack-aware desktop
   applications. It is bridged to Jack via module-jack-source and module-jack-sink.
-  Pulseaudio can not set realtime scheduling for the jack modules,
-  there is an open issue for this in the bugtracker.
+  Pulseaudio writes an error about not beeing able to set realtime
+  scheduling for the jack modules into the journal, despite the
+  correct parameters in the service files. There is an open
+  issue for this in the PulseAudio bugtracker. I think this is only on
+  issue if you run Jack in sync-mode.
+
+* Systemd and DBus
+
+  Systemd and DBus need to support User-Session semantics for this
+  setup to work. In Gentoo they need to be emerged with the
+  =user-session= USE flag.

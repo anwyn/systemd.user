@@ -8,6 +8,7 @@ After=pulseaudio-jack-bridge.service
 [Service]
 Type=oneshot
 RemainAfterExit=yes
+ExecStartPre=/bin/sh -c '/usr/bin/jack_wait -w -t 10 >/dev/null 2>&1'
 ExecStart=/usr/bin/jack_connect "PulseAudio JACK Sink:front-left" "%I:playback_1"
 ExecStart=/usr/bin/jack_connect "PulseAudio JACK Sink:front-right" "%I:playback_2"
 ExecStop=/usr/bin/jack_disconnect "PulseAudio JACK Sink:front-left" "%I:playback_1"

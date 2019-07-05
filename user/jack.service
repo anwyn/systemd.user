@@ -1,8 +1,8 @@
 [Unit]
 Description=JACK 2 Sound Daemon
-Before=pulseaudio.service
 Requires=dbus.socket
 After=alsa-setup.service
+After=pulseaudio.service
 
 [Service]
 Type=dbus
