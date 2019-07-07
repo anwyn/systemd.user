@@ -1,0 +1,22 @@
+#!/bin/sh
+
+AUDIO_LIB=$HOME/audio/lib
+
+PLUGIN_TYPES="ladspa dssi lv2 vst"
+DIRS="$HOME/. $AUDIO_LIB /usr/local/lib64 /usr/local/lib /usr/lib64 /usr/lib"
+
+echo AUDIO_LIB=$AUDIO_LIB
+
+for p in $PLUGIN_TYPES
+do
+    P=$(echo $p | tr 'a-z' 'A-Z')
+    P_PATH="${P}_PATH="
+
+    for d in $DIRS
+    do
+        test -d "$d/$p" && P_PATH="${P_PATH}$d/$p:"
+    done
+    echo $P_PATH
+done
+
+

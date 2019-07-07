@@ -7,7 +7,7 @@ then
     shift
 fi
 
-JACK_ENV_FILE=${1:-~/.config/jack/conf.env}
+JACK_ENV_FILE=${1:-~/.config/environment.d/20-jack.conf}
 for parm in rate nperiods period device; do
     name=JACK_$(echo $parm | tr 'a-z' 'A-Z')
     value=$(/usr/bin/jack_control dp | grep -e "^\ *${parm}:" | sed 's/.*:\(.*\))$/\1/')   
