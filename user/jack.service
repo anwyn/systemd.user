@@ -1,13 +1,13 @@
 [Unit]
 Description=JACK 2 Sound Daemon
 Requires=dbus.socket
-After=alsa-setup.service
+After=jack-environment.service
+Requires=jack-environment.service
 After=pulseaudio.service
 
 [Service]
 Type=dbus
 BusName=org.jackaudio.Controller
-ExecStartPre=%E/systemd/bin/jack-env %E/jack/conf.env
 ExecStart=/usr/bin/jack_control start
 ExecStop=/usr/bin/jack_control stop
 ExecStopPost=/usr/bin/pkill -9 jackdbus

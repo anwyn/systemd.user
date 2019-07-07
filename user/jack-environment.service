@@ -1,0 +1,11 @@
+[Unit]
+Description=Generate the environment for subsequent audio services.
+After=alsa-setup.service
+
+[Service]
+Type=oneshot
+ExecStart=%E/systemd/bin/jack-env --export
+ExecStart=%E/systemd/bin/plugins-env --export
+
+[Install]
+WantedBy=default.target
