@@ -1,0 +1,10 @@
+#!/bin/bash
+(
+    for generator in /etc/systemd/user-environment-generators/*
+    do
+        test -x "${generator}" && "${generator}"
+    done
+    /bin/cat ~/.config/environment.d/*.conf
+) | /bin/grep -ve '^[ 	]*#' | \
+    /bin/grep -ve '^[ 	]*$' | \
+    /bin/sed -e 's/^/export /' > ~/.profile.env

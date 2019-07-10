@@ -1,21 +1,19 @@
 [Unit]
 Description=JACK 2 Sound Daemon
 Requires=dbus.socket
-After=jack-environment.service
-Requires=jack-environment.service
 After=pulseaudio.service
 
 [Service]
 Type=dbus
 BusName=org.jackaudio.Controller
 ExecStart=/usr/bin/jack_control start
+ExecStartPost=%E/systemd/user-environment-generators/jack-environment-generator --export
 ExecStop=/usr/bin/jack_control stop
 ExecStopPost=/usr/bin/pkill -9 jackdbus
-ExecStopPost=/bin/rm -f %E/jack/conf.env
 SuccessExitStatus=0
 RemainAfterExit=true
 #Restart=always
 #RestartSec=5
 
 [Install]
-WantedBy=default.target
+WantedBy=sound.target

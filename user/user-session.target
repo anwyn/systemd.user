@@ -1,0 +1,11 @@
+# This is the main target for a user session.
+# You need make a symlink to this file named default.target, so
+# the services you enable from /usr/lib/systemd/user, which normally require
+# default.target, get activated.
+
+[Unit]
+Description=User Session
+Documentation=man:systemd.special(7)
+Requires=basic.target environment.target sound.target
+After=basic.target environment.target sound.target
+AllowIsolate=yes

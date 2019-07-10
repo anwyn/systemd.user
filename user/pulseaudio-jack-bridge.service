@@ -1,5 +1,5 @@
 [Unit]
-Description=Load and unload pulseaudio's jack sink/source modules.
+Description=Load and unload pulseaudio's jack sink/source modules
 Requires=jack.service
 After=jack.service
 Requires=pulseaudio.service
@@ -15,4 +15,4 @@ ExecStart=/bin/sh -c "(/usr/bin/pactl list sources | /bin/grep -q 'Driver: modul
 ExecStart=/bin/sh -c "(/usr/bin/pactl info | /bin/grep -q 'Default Source: jack_in') || /usr/bin/pactl set-default-source jack_in"
 
 [Install]
-WantedBy=default.target
+WantedBy=sound.target

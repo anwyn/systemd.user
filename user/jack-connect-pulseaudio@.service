@@ -15,4 +15,4 @@ ExecStop=/usr/bin/jack_disconnect "PulseAudio JACK Sink:front-left" "%I:playback
 ExecStop=/usr/bin/jack_disconnect "PulseAudio JACK Sink:front-right" "%I:playback_2"
 
 [Install]
-WantedBy=default.target
+WantedBy=sound.target

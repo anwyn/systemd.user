@@ -1,0 +1,26 @@
+#!/bin/sh
+
+doexport=
+if [ "$1" = "--export" ]
+then
+    doexport=true
+    shift    
+fi
+
+for parm in rate nperiods period device; do
+    name=JACK_$(echo $parm | /usr/bin/tr 'a-z' 'A-Z')
+    value=$(/usr/bin/jack_control dp | /bin/grep -e "^\ *${parm}:" | /bin/sed 's/.*:\(.*\))$/\1/')
+    if [ -n "$value" ]
+    then
+        test "$parm" = "device" && value=$(echo $value | /bin/sed 's/\([0-9][0-9]*\)/hw:\1/')
+        if [ "$doexport" = "true" ]
+        then
+             /bin/systemctl --user set-environment $name="$value" >/dev/null 2>&1
+        else
+             echo $name="$value"
+        fi
+    fi
+done
+
+
+

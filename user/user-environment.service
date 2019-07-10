@@ -1,0 +1,9 @@
+[Unit]
+Description=Generate ~/.profile.env for inclusion into shell startup scripts
+
+[Service]
+Type=oneshot
+ExecStart=%E/systemd/bin/update-env
+
+[Install]
+WantedBy=environment.target

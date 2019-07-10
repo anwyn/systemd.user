@@ -1,0 +1,11 @@
+[Unit]
+Description=Mount Samba Shares
+After=network.target
+
+[Service]
+Environment=HOME=%h
+ExecStart=/usr/bin/smbnetfs -f %h%f
+ExecStop=/usr/bin/fusermount -u %h%f
+
+[Install]
+WantedBy=user-session.target

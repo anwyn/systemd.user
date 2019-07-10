@@ -170,12 +170,18 @@ options snd_usb_audio index=3,4 vid=0x8002,0x00ff pid=0x1235,0x12ba
 #+END_EXAMPLE
 
   The =alsa-setup.service= restores the alsa cards settings from a file
-  in =~/.config/alsa/=. Unfortunately this is not enough for my
+  in =~/.config/alsa/<CARD_ID>.state=. Unfortunately this is not enough for my
   Focusrite Scarlett 8i6, the Channels are muted unless they are
-  toggled on/off one time. So the =alsa-setup= script in
-  =~/.config/systemd/bin= does this as well.
+  toggled on/off one time. So the =alsa-setup= script also calls
+  =~/.config/alsa/<CARD_ID>.setup= with the =CARD_ID= as parameter to
+  do any further necessary setup.
+  
 * Jack
 
+  Jack is started after pulseaudio, to give pulseaudio the chance to
+  load its Jack bridging modules. It might be wise to disable the ALSA
+  cards Jack should use in pulseaudio via pavucontrol.
+  
   In case jack can not switch to realtime mode when started from a
   user session systemd service, but does it just fine from the X11
   session dbus, check if /etc/pam.d/systemd-user contains the line
@@ -209,3 +215,16 @@ options snd_usb_audio index=3,4 vid=0x8002,0x00ff pid=0x1235,0x12ba
   Systemd and DBus need to support User-Session semantics for this
   setup to work. In Gentoo they need to be emerged with the
   =user-session= USE flag.
+
+  The package uses environment generators to make plugin paths and to
+  put jack parameters into the environment for usage in dependent
+  services. I also makes a file =~/.profile.env=, with these variables
+  and the ones from =~/.config/environment.d/*.conf=, which can be
+  sourced from a shell startup script. 
+
+* Installation
+
+  Copy =etc/user-session-environment-generators= into
+  =/etc/systemd/user-environment-generators= and enable
+  pulseaudio.service, jack.service and any other services you like.
+  

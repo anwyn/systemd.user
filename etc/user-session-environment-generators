@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if cd "${HOME}/.config/systemd/user-environment-generators/"
+then
+    for generator in *
+    do
+        test -x "${generator}" && ./"${generator}"
+    done
+fi

@@ -7,4 +7,4 @@ After=jack.service
 ExecStart=/usr/bin/zita-a2j -j "%I" -d "%I" -c 2 -r ${JACK_RATE} -p ${JACK_PERIOD} -n ${JACK_NPERIODS}
 
 [Install]
-WantedBy=default.target
+WantedBy=sound.target
