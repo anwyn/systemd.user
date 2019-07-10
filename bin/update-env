@@ -1,6 +1,6 @@
 #!/bin/bash
 (
-    for generator in /etc/systemd/user-environment-generators/*
+    for generator in ~/.config/systemd/user-environment-generators/*
     do
         test -x "${generator}" && "${generator}"
     done

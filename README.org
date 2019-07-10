@@ -224,7 +224,7 @@ options snd_usb_audio index=3,4 vid=0x8002,0x00ff pid=0x1235,0x12ba
 
 * Installation
 
-  Copy =etc/user-session-environment-generators= into
+  Copy or link =user-environment-generators/audio-plugin-path-generator= into
   =/etc/systemd/user-environment-generators= and enable
   pulseaudio.service, jack.service and any other services you like.
   

@@ -1,4 +1,4 @@
 [Unit]
-Description=Setup environment for user services.
+Description=Environment for user services
 Wants=basic.target
 After=basic.target

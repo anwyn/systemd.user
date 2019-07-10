@@ -1,5 +1,7 @@
 [Unit]
-Description=Generate ~/.profile.env for inclusion into shell startup scripts
+Description=Generation of user environment variables in ~/.profile.env
+Requires=dbus.service
+After=dbus.service
 
 [Service]
 Type=oneshot

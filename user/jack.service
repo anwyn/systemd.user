@@ -6,8 +6,8 @@ After=pulseaudio.service
 [Service]
 Type=dbus
 BusName=org.jackaudio.Controller
+ExecStartPre=%E/systemd/user-environment-generators/jack-environment-generator --export
 ExecStart=/usr/bin/jack_control start
-ExecStartPost=%E/systemd/user-environment-generators/jack-environment-generator --export
 ExecStop=/usr/bin/jack_control stop
 ExecStopPost=/usr/bin/pkill -9 jackdbus
 SuccessExitStatus=0

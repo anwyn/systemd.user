@@ -1,5 +1,5 @@
 [Unit]
-Description=Load and unload pulseaudio's jack sink/source modules
+Description=Pulseaudio Jack Bridge
 Requires=jack.service
 After=jack.service
 Requires=pulseaudio.service

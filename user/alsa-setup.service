@@ -1,5 +1,5 @@
 [Unit]
-Description=Setup alsa card(s).
+Description=ALSA card(s) setup
 Before=jack.service
 
 [Service]

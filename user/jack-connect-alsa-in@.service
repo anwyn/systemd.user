@@ -1,5 +1,5 @@
 [Unit]
-Description=Open jack capture ports to ALSA card %I via zita-ajbridge
+Description=Jack capture ports from ALSA card %I via zita-ajbridge
 BindsTo=jack.service
 After=jack.service
 
