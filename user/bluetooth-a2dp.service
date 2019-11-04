@@ -1,0 +1,12 @@
+[Unit]
+Description=Register A2DP as bluetooth default service.
+Requires=pulseaudio.service
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "( echo menu gatt; echo register-service 0000110b-0000-1000-8000-00805f9b34fb; echo yes ) | /usr/bin/bluetoothctl >/dev/null 2>&1"
+
+[Install]
+WantedBy=sound.target
