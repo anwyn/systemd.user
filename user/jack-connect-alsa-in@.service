@@ -1,5 +1,6 @@
 [Unit]
 Description=Jack capture ports from ALSA card %I via zita-ajbridge
+Requires=environment.target
 BindsTo=jack.service
 After=jack.service
 

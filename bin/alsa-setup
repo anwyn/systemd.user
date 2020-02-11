@@ -2,10 +2,17 @@
 
 for CARD in $(cat /proc/asound/card[0-9]*/id)
 do
-    CARD_BASE="~/.config/alsa/${CARD}"
+    CARD_BASE="${HOME}/.config/alsa/${CARD}"
     
-    test -f "${CARD_BASE}.state" && /usr/sbin/alsactl -f "${CARD_BASE}.state" restore "${CARD}"
-    test -x "${CARD_BASE}.setup" && "${CARD_BASE}.setup" "${CARD}"
+    if [ -f "${CARD_BASE}.state" ]; then
+        echo Restoring state for ALSA Card ${CARD}
+        /usr/sbin/alsactl -f "${CARD_BASE}.state" restore "${CARD}"
+    fi
+
+    if [ -x "${CARD_BASE}.setup" ]; then
+        echo Running setup script for ALSA Card ${CARD}
+        "${CARD_BASE}.setup" "${CARD}"
+    fi
 done
 
 exit 0

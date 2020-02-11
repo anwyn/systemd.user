@@ -1,10 +1,14 @@
 [Unit]
 Description=ALSA card(s) setup
+Requires=environment.target
+Requires=pulseaudio.service
+After=pulseaudio.service
 Before=jack.service
 
 [Service]
 Type=oneshot
 ExecStart=%E/systemd/bin/alsa-setup
+RemainAfterExit=true
 
 [Install]
 WantedBy=sound.target

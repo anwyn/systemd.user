@@ -6,6 +6,6 @@
 [Unit]
 Description=User Session
 Documentation=man:systemd.special(7)
-Requires=basic.target environment.target sound.target
-After=basic.target environment.target sound.target
+Requires=sound.target
+After=sound.target
 AllowIsolate=yes
