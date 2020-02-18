@@ -1,0 +1,15 @@
+[Unit]
+Description=setting parameters on X11 Display %I
+Documentation=man:xset(1) man:xsetroot(1)
+After=xdisplay@%i.service
+
+[Service]
+Type=oneshot
+EnvironmentFile=%E/X11/settings
+ExecStart=/usr/bin/xset r rate ${KBD_DELAY} ${KBD_RATE}
+ExecStart=/usr/bin/xsetroot -cursor_name ${MOUSE_CURSOR_NAME}
+ExecStart=/usr/bin/xset m ${MOUSE_RATE} ${MOUSE_THRESHOLD}
+SyslogIdentifier=xset
+
+[Install]
+WantedBy=X11@%i.target

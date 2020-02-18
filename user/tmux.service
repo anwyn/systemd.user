@@ -1,0 +1,16 @@
+[Unit]
+Description=tmux: A terminal multiplixer 
+Documentation=man:tmux(1)
+After=gpg-agent.service
+Wants=gpg-agent.service
+
+[Service]
+Type=forking
+Environment=TMUX_TMPDIR="%t"
+ExecStartPre=/bin/systemctl --user set-environment TMUX_TMPDIR="%t"
+ExecStart=/usr/bin/tmux -f %E/tmux/tmux.conf start-server \; new-session -d -s main
+ExecStop=/usr/bin/tmux kill-server
+Restart=always
+
+[Install]
+WantedBy=multiplexer.target

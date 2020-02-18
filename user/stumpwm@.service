@@ -1,0 +1,14 @@
+[Unit]
+Description=Stump Window Manager on X11 Display %I
+After=X11@%i.target
+Requisite=X11@%i.target
+PartOf=xsession@%i.target
+
+[Service]
+ExecStart=%h/src/lisp/stumpwm/stumpwm
+ExecStopPost=/bin/systemctl --user stop xsession@%i.target
+Restart=on-failure
+
+[Install]
+WantedBy=xsession@%i.target
+Alias=window-manager@%i.service

@@ -1,0 +1,10 @@
+[Unit]
+Description=setting the DISPLAY environment variable to %I
+
+[Service]
+Type=oneshot
+ExecStart=/bin/systemctl --user set-environment DISPLAY="%I" 
+SyslogIdentifier=xdisplay
+
+[Install]
+WantedBy=X11@%i.target

@@ -1,0 +1,6 @@
+[Unit]
+Description=X11 Display %I
+BindsTo=graphical-session.target
+
+[Install]
+WantedBy=xsession@%i.target
