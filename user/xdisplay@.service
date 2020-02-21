@@ -3,7 +3,8 @@ Description=setting the DISPLAY environment variable to %I
 
 [Service]
 Type=oneshot
-ExecStart=/bin/systemctl --user set-environment DISPLAY="%I" 
+Environment=DISPLAY="%I"
+ExecStart=/bin/systemctl --user import-environment DISPLAY
 SyslogIdentifier=xdisplay
 
 [Install]
