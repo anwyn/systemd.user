@@ -4,7 +4,6 @@
     do
         test -x "${generator}" && "${generator}"
     done
-    /bin/cat ~/.config/environment.d/*.conf
 ) | /bin/grep -ve '^[ 	]*#' | \
     /bin/grep -ve '^[ 	]*$' | \
     /bin/sed -e 's/^/export /' > ~/.profile.env
