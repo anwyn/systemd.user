@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# make sure pulsaudio runs
+/usr/bin/pacmd info >/dev/null 2>&1 || echo "Pulseaudio not up."
+
 for CARD in $(cat /proc/asound/card[0-9]*/id)
 do
     CARD_BASE="${HOME}/.config/alsa/${CARD}"

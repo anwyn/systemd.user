@@ -9,7 +9,7 @@ Wants=gpg-agent.service
 Type=forking
 Environment=TMUX_TMPDIR="%t"
 ExecStartPre=/bin/systemctl --user import-environment TMUX_TMPDIR
-ExecStart=/usr/bin/tmux -f %E/tmux/tmux.conf start-server \; new-session -d -s main
+ExecStart=/usr/bin/tmux -f %E/tmux/tmux.conf start-server \; new-session -d -s background
 ExecStop=/usr/bin/tmux kill-server
 Restart=always
 

@@ -1,6 +1,9 @@
 [Unit]
 Description=Emacs: the extensible, self-documenting text editor
 Documentation=info:emacs man:emacs(1)
+After=environment.target
+After=gpg-agent.service
+Wants=gpg-agent.service
 
 [Service]
 Type=simple
