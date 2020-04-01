@@ -1,0 +1,16 @@
+#!/bin/sh
+
+sleeptime=5
+host="${1:-8.8.8.8}"
+timeout=$(expr ${2:-60} / 5)
+
+pingcheck() {
+  ping -n -c 1 -w $sleeptime $1 >/dev/null 2>&1
+}
+
+# Do you want a timeout ?
+while [[ $timeout -ge 0 ]]; do
+    pingcheck ${host} && exit 0
+    sleep $sleeptime
+    timeout=$(expr $timeout - 2 \* $sleeptime)
+done
