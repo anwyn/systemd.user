@@ -1,0 +1,17 @@
+[Unit]
+Description=setting keyboard layout on X11 Display %I
+Documentation=man:setxkbmap(1) man:xset(1)
+After=xdisplay@%i.service
+
+[Service]
+Type=oneshot
+Environment=KBD_DELAY=250 KBD_RATE=40
+Environment=KBD_LAYOUT=us KBD_VARIANT="" KBD_OPTION="" 
+EnvironmentFile=-%E/X11/keyboard
+EnvironmentFile=-%E/X11/keyboard@%I
+ExecStart=/usr/bin/setxkbmap -layout ${KBD_LAYOUT} -variant ${KBD_VARIANT} -option ${KBD_OPTION}
+ExecStart=/usr/bin/xset r rate ${KBD_DELAY} ${KBD_RATE}
+SyslogIdentifier=xkb
+
+[Install]
+WantedBy=X11@%i.target

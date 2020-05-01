@@ -5,7 +5,7 @@ After=xdisplay@%i.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/env flock %t/x11-xrdb@%I -c 'xrdb -merge %E/X11/resources'
+ExecStart=/usr/bin/env flock %t/x11-xrdb@%I -c 'xrdb -merge %E/X11/resources; ( test -f %E/X11/resources@%I && xrdb -merge %E/X11/resources@%I ) || /bin/true'
 SyslogIdentifier=xrdb
 
 [Install]

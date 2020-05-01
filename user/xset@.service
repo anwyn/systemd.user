@@ -5,10 +5,9 @@ After=xdisplay@%i.service
 
 [Service]
 Type=oneshot
-Environment=KBD_DELAY=250 KBD_RATE=40
 Environment=MOUSE_CURSOR_NAME=left_ptr MOUSE_RATE=3/2 MOUSE_THRESHOLD=8
 EnvironmentFile=-%E/X11/settings
-ExecStart=/usr/bin/xset r rate ${KBD_DELAY} ${KBD_RATE}
+EnvironmentFile=-%E/X11/settings@%I
 ExecStart=/usr/bin/xsetroot -cursor_name ${MOUSE_CURSOR_NAME}
 ExecStart=/usr/bin/xset m ${MOUSE_RATE} ${MOUSE_THRESHOLD}
 SyslogIdentifier=xset

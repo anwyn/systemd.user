@@ -37,4 +37,4 @@ RestrictNamespaces=yes
 # permitted")
 
 [Install]
-WantedBy=sound.target
+WantedBy=user-session.target

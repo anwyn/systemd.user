@@ -1,6 +1,5 @@
 [Unit]
 Description=Environment Setup for the User Session
 Documentation=man:systemd.special(7)
-Requires=basic.target
-After=basic.target
+Before=basic.target
 
