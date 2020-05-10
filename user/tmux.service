@@ -1,9 +1,8 @@
 [Unit]
 Description=tmux: A terminal multiplixer 
 Documentation=man:tmux(1)
+Wants=environment.target
 After=environment.target
-After=gpg-agent.service
-Wants=gpg-agent.service
 
 [Service]
 Type=forking

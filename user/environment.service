@@ -1,11 +1,10 @@
 [Unit]
 Description=Generation of user environment variables in ~/.profile.env
-Requires=dbus.service
-After=dbus.service
-
+                       
 [Service]
 Type=oneshot
 ExecStart=%E/systemd/bin/update-env
+RemainAfterExit=true
 
 [Install]
 WantedBy=environment.target

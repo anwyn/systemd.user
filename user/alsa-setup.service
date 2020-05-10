@@ -1,6 +1,6 @@
 [Unit]
 Description=ALSA card(s) setup
-Requires=environment.target
+Wants=environment.target
 After=environment.target
 
 [Service]
@@ -8,4 +8,4 @@ Type=oneshot
 ExecStart=%E/systemd/bin/alsa-setup
 
 [Install]
-WantedBy=sound.target
+WantedBy=audio-setup.target

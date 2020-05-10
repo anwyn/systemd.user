@@ -1,7 +1,7 @@
 [Unit]
 Description=Music Player Daemon
 Documentation=man:mpd(1) man:mpd.conf(5)
-Requires=jack.service
+Wants=jack.service
 Wants=pulseaudio.service
 After=jack.service
 After=pulseaudio.service

@@ -1,0 +1,8 @@
+[Unit]
+Description=Audio hardware setup, runs before dbus, jack, pulse.
+Documentation=man:systemd.special(7)
+Wants=environment.target
+After=environment.target
+
+[Install]
+WantedBy=sound.target

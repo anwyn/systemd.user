@@ -6,8 +6,9 @@ AUDIO_LIB="${AUDIO_HOME}/lib"
 echo AUDIO_HOME="$AUDIO_HOME"
 echo AUDIO_LIB="$AUDIO_LIB"
 
-PLUGIN_TYPES="ladspa dssi lv2 vst"
-DIRS="$HOME/. $AUDIO_LIB /usr/local/lib64 /usr/local/lib /usr/lib64 /usr/lib"
+PLUGIN_TYPES="lv2 vst ladspa dssi"
+DIRS64="$HOME/. $AUDIO_LIB /usr/local/lib64 /usr/lib64"
+DIRS="$DIRS64 /usr/local/lib /usr/lib"
 
 for p in $PLUGIN_TYPES
 do
