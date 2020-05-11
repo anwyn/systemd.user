@@ -1,8 +1,8 @@
 [Unit]
 Description=X11 Display %I
 BindsTo=graphical-session.target
-Wants=xdisplay@%i.service xresources@%i.service xset@%i.service xkb@%i.service 
-Wants=xrdb-set-dpi@%i.service
+Wants=xdisplay@.service xresources@.service xset@.service xkb@.service
+Wants=xrdb-set-dpi@.service
 
 [Install]
 WantedBy=xsession@.target

@@ -1,7 +1,8 @@
 [Unit]
 Description=setting the correct DPI on X11 Display %I
 Documentation=man:xrdb(1)
-After=xdisplay@%i.service
+Wants=xdisplay@.service
+After=xdisplay@.service
 
 [Service]
 Type=oneshot
