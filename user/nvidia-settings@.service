@@ -1,0 +1,12 @@
+[Unit]
+Description=Nvidia graphic card(s) setup
+Documentation=man:nvidia-settings(1)
+After=xdisplay@%i.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/nvidia-settings --load-config-only
+SyslogIdentifier=nvidia
+
+[Install]
+Alias=X11@.target.wants/nvidia-settings@.service

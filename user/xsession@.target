@@ -1,6 +1,5 @@
 [Unit]
 Description=X11 Session on Display %I
-After=X11@%i.target
 Requisite=X11@%i.target
-Wants=window-manager@%i.service
-After=window-manager@%i.service
+After=X11@%i.target
+Wants=window-manager@%i.service xcompositor@%i.service

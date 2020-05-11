@@ -1,5 +1,5 @@
 [Unit]
 Description=Environment Setup for the User Session
 Documentation=man:systemd.special(7)
-Wants=basic.target
-After=basic.target
+Wants=basic.target environment.service
+

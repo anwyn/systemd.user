@@ -1,11 +1,10 @@
 [Unit]
 Description=X Compositor for X11 Display %I
-After=X11@$i.target
+After=X11@%i.target
 PartOf=xsession@%i.target
 
 [Service]
 ExecStart=xcompmgr -fF
 
 [Install]
-WantedBy=xsession@%i.target
-Alias=xcompositor@%i.service
+Alias=xcompositor@.service

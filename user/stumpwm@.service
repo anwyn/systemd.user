@@ -10,5 +10,4 @@ ExecStopPost=/bin/systemctl --user stop xsession@%i.target
 Restart=on-failure
 
 [Install]
-WantedBy=xsession@%i.target
 Alias=window-manager@%i.service

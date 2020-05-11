@@ -9,4 +9,4 @@ ExecStart=/usr/bin/env flock %t/x11-xrdb@%I -c %E/systemd/bin/xrdb-set-dpi
 SyslogIdentifier=xrdb-set-dpi
 
 [Install]
-WantedBy=X11@%i.target
+WantedBy=X11@.target

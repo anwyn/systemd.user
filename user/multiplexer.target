@@ -1,8 +1,6 @@
 [Unit]
 Description=Terminal multiplexer
 Documentation=info:screen man:screen(1) man:tmux(1)
-Wants=enironment.target
-After=environment.target
 
 [Install]
 WantedBy=user-session.target

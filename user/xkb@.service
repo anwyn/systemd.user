@@ -14,4 +14,4 @@ ExecStart=/usr/bin/xset r rate ${KBD_DELAY} ${KBD_RATE}
 SyslogIdentifier=xkb
 
 [Install]
-WantedBy=X11@%i.target
+WantedBy=X11@.target

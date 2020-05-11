@@ -7,5 +7,4 @@ PartOf=xsession@%i.target
 ExecStart=/usr/bin/compton --config "%E/compton/compton.conf"
 
 [Install]
-WantedBy=xsession@%i.target
-Alias=xcompositor@%i.service
+Alias=xcompositor@.service

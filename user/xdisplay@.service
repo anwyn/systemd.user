@@ -8,4 +8,4 @@ ExecStart=/bin/systemctl --user import-environment DISPLAY
 SyslogIdentifier=xdisplay
 
 [Install]
-WantedBy=X11@%i.target
+WantedBy=X11@.target

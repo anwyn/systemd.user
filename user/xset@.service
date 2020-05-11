@@ -13,4 +13,4 @@ ExecStart=/usr/bin/xset m ${MOUSE_RATE} ${MOUSE_THRESHOLD}
 SyslogIdentifier=xset
 
 [Install]
-WantedBy=X11@%i.target
+WantedBy=X11@.target
