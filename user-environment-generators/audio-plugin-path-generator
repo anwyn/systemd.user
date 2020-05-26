@@ -6,7 +6,7 @@ AUDIO_LIB="${AUDIO_HOME}/lib"
 echo AUDIO_HOME="$AUDIO_HOME"
 echo AUDIO_LIB="$AUDIO_LIB"
 
-PLUGIN_TYPES="lv2 vst ladspa dssi"
+PLUGIN_TYPES="lv2 vst vst3 ladspa dssi sf2 sfz"
 DIRS64="$HOME/. $AUDIO_LIB /usr/local/lib64 /usr/lib64"
 DIRS="$DIRS64 /usr/local/lib /usr/lib"
 
