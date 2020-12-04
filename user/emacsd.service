@@ -6,7 +6,7 @@ After=gpg-agent.service
 Wants=gpg-agent.service
 
 [Service]
-Type=simple
+Type=notify
 Environment=SSH_AUTH_SOCK=%t/gnupg/S.gpg-agent.ssh
 ExecStart=/usr/bin/emacs --fg-daemon
 ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
