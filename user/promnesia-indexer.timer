@@ -1,0 +1,12 @@
+[Unit]
+Description=timer for the promnesia indexer
+
+[Timer]
+WakeSystem=false
+OnStartupSec=30min
+OnUnitInactiveSec=1h
+RandomizedDelaySec=10min
+
+[Install]
+WantedBy=timers.target
+

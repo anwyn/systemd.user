@@ -1,0 +1,6 @@
+[Unit]
+Description=a desktop notification about a failed user unit
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/notify-send --urgency=critical "Systemd unit %I failed"

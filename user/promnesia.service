@@ -1,0 +1,12 @@
+[Unit]
+Description=Promnesia, a remembrance agent.
+Documentation=https://beepb00p.xyz/promnesia.html
+
+[Service]
+Type=simple
+ExecStartPre=/bin/rm -f "%h/.log/promnesia"
+ExecStart=/bin/sh -c "%h/.local/bin/promnesia serve >~/.log/promnesia 2>&1"
+Restart=on-failure
+
+[Install]
+WantedBy=user-session.target
