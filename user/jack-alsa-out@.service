@@ -1,0 +1,18 @@
+[Unit]
+Description=JACK to ALSA bridge for %I
+Requires=environment.target
+BindsTo=jack.service
+After=jack.service
+
+[Service]
+Environment=ALSA_DEVICE="%I"
+Environment=JACK_NAME="%I"
+Environment=OUTPUT_CHANNELS=2 OUTPUT_LATENCY=0
+EnvironmentFile=-%E/alsa/%I.conf
+EnvironmentFile=-%E/alsa/%I-out.conf
+ExecStartPre=/bin/sh -c 'sleep 2; /usr/bin/jack_wait -w -t 5 >/dev/null 2>&1'
+ExecStart=/bin/sh -c 'exec /usr/bin/zita-j2a -d "${ALSA_DEVICE}" -j "${JACK_NAME}-out" -c ${OUTPUT_CHANNELS} -O ${OUTPUT_LATENCY} -r $${RATE:-$${JACK_RATE}} -p $${PERIOD:-$${JACK_PERIOD}} -n $${NPERIODS:-$${JACK_NPERIODS}}'
+ExecStartPost=-/bin/sh -c 'sleep 2; for p in ${JACK_OUT_CONNECTIONS}; do jack_connect "$$(echo $$p | sed -e "s,/.*,," )" "${JACK_NAME}-out":"$$(echo $$p | sed -e "s,.*/,," )" ; done'
+
+[Install]
+WantedBy=sound.target

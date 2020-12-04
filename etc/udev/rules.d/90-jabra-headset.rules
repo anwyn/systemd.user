@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="0b0e", ENV{ID_MODEL_ID}=="091c", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/jabra", TAG+="systemd"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="b0e/91c/141", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/jabra", TAG+="systemd"

@@ -1,0 +1,2 @@
+ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="0582", ENV{ID_MODEL_ID}=="0217", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/boss_gt1000", TAG+="systemd"
+ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="582/217/100", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/boss_gt1000", TAG+="systemd"
