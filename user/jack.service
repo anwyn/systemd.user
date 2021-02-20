@@ -1,22 +1,21 @@
 [Unit]
 Description=JACK 2 Sound Daemon
 Requires=dbus.socket
-Wants=audio-setup.target
-After=audio-setup.target
-Wants=pulseaudio.service
-After=pulseaudio.service
+After=dbus.service
+BindsTo=sys-subsystem-sound-Scarlett_8i6_USB.device
+After=sys-subsystem-sound-Scarlett_8i6_USB.device
 
 [Service]
 Type=dbus
 BusName=org.jackaudio.Controller
 ExecStartPre=%E/systemd/user-environment-generators/jack-environment-generator --export
 ExecStart=/usr/bin/jack_control start
-ExecStop=/usr/bin/jack_control stop
-ExecStopPost=/usr/bin/pkill -9 jackdbus
+ExecStop=-/usr/bin/jack_control stop
+ExecStopPost=-/usr/bin/pkill -9 jackdbus
 SuccessExitStatus=0
 RemainAfterExit=true
 #Restart=always
 #RestartSec=5
 
 [Install]
-WantedBy=sound.target
+WantedBy=sys-subsystem-sound-Scarlett_8i6_USB.device

@@ -1,0 +1,13 @@
+[Unit]
+Description=ALSA card %I setup
+
+[Service]
+Type=oneshot
+ExecStart=-/bin/sh -c 'CARD=$(cat /proc/asound/card%I/id); \
+  test -f "%E/alsa/$${CARD}.state" && \
+  echo "Restoring state of ALSA card 4 ($${CARD})" && \
+  alsactl -f "%E/alsa/$${CARD}.state" restore "$${CARD}"'
+ExecStartPost=-/bin/sh -c 'CARD=$(cat /proc/asound/card%I/id); \
+  test -x "%E/alsa/$${CARD}.setup" && \
+  echo "Running setup script for ALSA card 4 ($${CARD})" && \
+  "%E/alsa/$${CARD}.setup" "$${CARD}"'

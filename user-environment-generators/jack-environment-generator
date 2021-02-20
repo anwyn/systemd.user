@@ -9,7 +9,14 @@ fi
 
 for parm in rate nperiods period device; do
     name=JACK_$(echo $parm | /usr/bin/tr 'a-z' 'A-Z')
-    value=$(/usr/bin/jack_control dp | /bin/grep -e "^\ *${parm}:" | /bin/sed 's/.*:\(.*\))$/\1/')
+
+    # using jack_control will startup jack via dbus, we want to avoid this early in the startup sequence
+    # value=$(/usr/bin/jack_control dp | /bin/grep -e "^\ *${parm}:" | /bin/sed 's/.*:\(.*\))$/\1/')
+
+    # so we are picking the values directly from ~/.config/jack/conf.xml
+    value=$(/bin/grep "<option name=\"$parm\">" ~/.config/jack/conf.xml |
+                /bin/sed "s,^ *<option name=\"$parm\">\([^<]*\)</option>.*$,\1,")
+    
     if [ -n "$value" ]
     then
         test "$parm" = "device" && value=$(echo $value | /bin/sed 's/\([0-9][0-9]*\)/hw:\1/')
@@ -21,6 +28,3 @@ for parm in rate nperiods period device; do
         fi
     fi
 done
-
-
-

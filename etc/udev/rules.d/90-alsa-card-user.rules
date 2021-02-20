@@ -1,0 +1,3 @@
+# if you have multiple interfaces of one model, you may want to change the alias to
+# something containing the number, eg: "/sys/subsystem/sound/%E{ID_MODEL}_%n"
+ACTION=="change", SUBSYSTEM=="sound", DEVPATH=="*/sound/card*", TAG+="systemd", ENV{SYSTEMD_ALIAS}+="/sys/subsystem/sound/%E{ID_MODEL}", ENV{SYSTEMD_USER_WANTS}+="alsa-card@%n.service"

@@ -1,7 +1,7 @@
 [Unit]
 Description=Audio hardware setup, runs before dbus, jack, pulse.
 Documentation=man:systemd.special(7)
-Wants=environment.target alsa-setup.service
+Wants=environment.target
 
 [Install]
 WantedBy=sound.target

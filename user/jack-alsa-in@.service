@@ -13,6 +13,8 @@ EnvironmentFile=-%E/alsa/%I-in.conf
 ExecStartPre=/bin/sh -c 'sleep 2; /usr/bin/jack_wait -w -t 5 >/dev/null 2>&1'
 ExecStart=/bin/sh -c 'exec /usr/bin/zita-a2j -d "${ALSA_DEVICE}" -j "${JACK_NAME}-in" -c ${INPUT_CHANNELS} -I ${INPUT_LATENCY} -r $${RATE:-$${JACK_RATE}} -p $${PERIOD:-$${JACK_PERIOD}} -n $${NPERIODS:-$${JACK_NPERIODS}}'
 ExecStartPost=-/bin/sh -c 'sleep 2; for p in ${JACK_IN_CONNECTIONS}; do jack_connect "${JACK_NAME}-in":"$$(echo $$p | sed -e "s,/.*,," )" "$$(echo $$p | sed -e "s,.*/,," )" ; done'
+ExecStartPost=-/bin/sh -c 'sleep 2; for p in ${JACK_CONNECTIONS}; do jack_connect "$$(echo $$p | sed -e "s,/.*,," )" "$$(echo $$p | sed -e "s,.*/,," )" ; done'
+ExecStopPost=-/bin/sh -c 'sleep 2; for p in ${JACK_CONNECTIONS}; do jack_disconnect "$$(echo $$p | sed -e "s,/.*,," )" "$$(echo $$p | sed -e "s,.*/,," )" ; done'
 
 [Install]
 WantedBy=sound.target

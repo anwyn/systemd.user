@@ -1,0 +1,10 @@
+# Pulseaudio should ignore the following interfaces
+
+# the Focusrite Scarlett 8i6, it's for Jack
+ATTRS{idVendor}=="1235", ATTRS{idProduct}=="8002", ENV{PULSE_IGNORE}="1"
+# the Behringer XR18
+ATTRS{idVendor}=="1397", ATTRS{idProduct}=="00d4", ENV{PULSE_IGNORE}="1"
+# Boss GT-1000
+ATTRS{idVendor}=="0582", ATTRS{idProduct}=="0217", ENV{PULSE_IGNORE}="1"
+# Jabra USB Headset
+ATTRS{idVendor}=="0b0e", ATTRS{idProduct}=="091c", ENV{PULSE_IGNORE}="1"

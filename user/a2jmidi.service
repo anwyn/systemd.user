@@ -13,4 +13,4 @@ SuccessExitStatus=0
 RemainAfterExit=true
 
 [Install]
-WantedBy=sound.target
+WantedBy=jack.service

@@ -1,4 +1,0 @@
-ACTION=="add", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="1397", ENV{ID_MODEL_ID}=="00d4", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/behringer_x18xr18", TAG+="systemd"
-ACTION=="remove", SUBSYSTEM=="usb", ENV{PRODUCT}=="1397/d4/101", ENV{SYSTEMD_ALIAS}="/sys/subsystem/usb/behringer_x18xr18", TAG+="systemd"
-
-
